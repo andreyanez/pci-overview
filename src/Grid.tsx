@@ -3,7 +3,8 @@ import { ColDef, ValueFormatterParams } from 'ag-grid-community';
 import data from './near-earth-asteroids.json';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
+import './styles.css';
 
 const numberComparator = (valueA: number, valueB: number): number => {
 	return valueA - valueB;
@@ -79,6 +80,8 @@ const columnDefs: ColDef[] = [
 ];
 
 const NeoGrid = (): JSX.Element => {
+	const gridRef = useRef<AgGridReact>(null);
+
 	const defaultColDef = useMemo(() => {
 		return {
 			filter: true,
@@ -86,10 +89,24 @@ const NeoGrid = (): JSX.Element => {
 		};
 	}, []);
 
+	const clearFilteringAndSorting = useCallback(() => {
+		gridRef.current?.api.setFilterModel(null);
+		gridRef.current?.columnApi.applyColumnState({
+			defaultState: { sort: null },
+		});
+	}, []);
+
 	return (
 		<div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+			<div className="table-menu">
+				<h1>Near-Earth Object Overview</h1>
+				<button className="table-btn" onClick={clearFilteringAndSorting}>
+					Clear Filters and Sorters
+				</button>
+			</div>
 			<AgGridReact
 				rowData={data}
+				ref={gridRef}
 				columnDefs={columnDefs}
 				defaultColDef={defaultColDef}
 				ensureDomOrder={true}

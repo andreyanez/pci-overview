@@ -1,0 +1,21 @@
+.table-menu {
+	display: flex;
+	align-items: center;
+	column-gap: 15px;
+	margin-block: 2rem;
+}
+
+.table-btn {
+	height: 40px;
+	cursor: pointer;
+	padding: 0.5rem 1rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	color: #fff;
+	transition: all 400ms ease;
+	background: rgb(87, 180, 186);
+}
+
+.table-btn:hover {
+	background: rgb(98, 208, 215);
+}
