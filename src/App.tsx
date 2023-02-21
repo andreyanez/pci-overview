@@ -1,9 +1,12 @@
 import NeoGrid from './Grid';
 
 const App = () => {
-  return (
-      <NeoGrid />
-  );
-}
+	return (
+		<>
+			<h1>Near-Earth Object Overview</h1>
+			<NeoGrid />
+		</>
+	);
+};
 
 export default App;
