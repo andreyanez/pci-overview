@@ -1,5 +1,5 @@
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, ValueFormatterParams } from 'ag-grid-community';
 import data from './near-earth-asteroids.json';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -20,6 +20,16 @@ const dateComparator = (valueA: string, valueB: string): number => {
 	return dateA - dateB;
 };
 
+const dateFormatter = (params: ValueFormatterParams): string => {
+	const dateISO = new Date(params.value);
+	const date = dateISO.getDate();
+	const month = dateISO.getMonth() + 1;
+	const year = dateISO.getFullYear();
+	const mmddyyyy =
+		(month <= 9 ? '0' + month : month) + '-' + (date <= 9 ? '0' + date : date) + '-' + year;
+	return mmddyyyy;
+};
+
 const columnDefs: ColDef[] = [
 	{
 		field: 'designation',
@@ -30,6 +40,7 @@ const columnDefs: ColDef[] = [
 		field: 'discovery_date',
 		headerName: 'Discovery Date',
 		comparator: dateComparator,
+		valueFormatter: dateFormatter,
 	},
 	{
 		field: 'h_mag',
