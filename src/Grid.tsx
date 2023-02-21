@@ -34,6 +34,15 @@ const phaFormatter = (params: ValueFormatterParams): string => {
 	return params.value === 'Y' ? 'Yes' : params.value === 'N' ? 'No' : '';
 };
 
+document.addEventListener('copy', async () => {
+	const clipboardData = await navigator.clipboard.readText();
+	navigator.clipboard.write([
+		new ClipboardItem({
+			'text/plain': new Blob([clipboardData], { type: 'text/plain' }),
+		}),
+	]);
+});
+
 const columnDefs: ColDef[] = [
 	{
 		field: 'designation',
@@ -65,7 +74,6 @@ const columnDefs: ColDef[] = [
 	{
 		field: 'orbit_class',
 		headerName: 'Orbit Class',
-		enableRowGroup: true,
 		comparator: stringComparator,
 	},
 ];
@@ -84,6 +92,8 @@ const NeoGrid = (): JSX.Element => {
 				rowData={data}
 				columnDefs={columnDefs}
 				defaultColDef={defaultColDef}
+				ensureDomOrder={true}
+				enableCellTextSelection={true}
 				rowGroupPanelShow={'always'}
 			/>
 		</div>
