@@ -1,9 +1,9 @@
-import NeoGrid from './Grid';
+import AsteroidOverview from './pages/asteroid-overview';
 
 const App = () => {
 	return (
 		<>
-			<NeoGrid />
+			<AsteroidOverview />
 		</>
 	);
 };
