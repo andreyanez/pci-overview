@@ -30,6 +30,10 @@ const dateFormatter = (params: ValueFormatterParams): string => {
 	return mmddyyyy;
 };
 
+const phaFormatter = (params: ValueFormatterParams): string => {
+	return params.value === 'Y' ? 'Yes' : params.value === 'N' ? 'No' : '';
+};
+
 const columnDefs: ColDef[] = [
 	{
 		field: 'designation',
@@ -52,7 +56,12 @@ const columnDefs: ColDef[] = [
 	{ field: 'q_au_2', headerName: 'Q (au)', comparator: numberComparator },
 	{ field: 'period_yr', headerName: 'Period (yr)', comparator: numberComparator },
 	{ field: 'i_deg', headerName: 'Inclination (deg)', comparator: numberComparator },
-	{ field: 'pha', headerName: 'Potentially Hazardous', comparator: stringComparator },
+	{
+		field: 'pha',
+		headerName: 'Potentially Hazardous',
+		comparator: stringComparator,
+		valueFormatter: phaFormatter,
+	},
 	{
 		field: 'orbit_class',
 		headerName: 'Orbit Class',
